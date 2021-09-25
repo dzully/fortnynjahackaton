@@ -11,7 +11,7 @@ import {materialTheme} from '../utils/config';
 import Header from '../Login/Header';
 
 const Content = ({
-  signInLabel = 'Sign In',
+  signInLabel = 'Sign Up',
   handleInput,
   handleSignin,
   auth,

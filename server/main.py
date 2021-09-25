@@ -13,12 +13,14 @@ class Item(BaseModel):
     password: str
 
 
-class Usersignup(BaseModel):
+class UserVerify(BaseModel):
     username: str
     password: str
-    name: str
-    phoneno: int
-    ic: int
+
+
+class Usersignup(BaseModel):
+    userId: str
+    code: str
 
 
 @app.get("/")
@@ -27,6 +29,19 @@ def read_root():
 
 
 baseUrl = 'https://staging.usepod.app'
+
+
+@app.post("/api/forty/smsverify")
+async def create_item(userVerify: UserVerify):
+    url = baseUrl + "/podsavings/hackathon/v1.0/smsverify?" + \
+        "userid=" + userVerify.userId + '&code=' + userVerify.code
+    payload = {}
+    headers = {}
+
+    response = requests.request("GET", url, auth=requests.auth.HTTPBasicAuth(
+        username="4ZFfoQJm7KFrwpZe", password='6pHJP458LK0iccM6e123'), headers=headers, data=payload)
+
+    return response.json()
 
 
 @app.get("/api/forty/category")

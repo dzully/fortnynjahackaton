@@ -3,6 +3,7 @@ import React, {useReducer, createContext} from 'react';
 const initialState = {
   authentication: null,
   category: null,
+  signUpUserId: null,
 };
 
 export const Store = createContext(initialState);
@@ -10,6 +11,7 @@ export const Store = createContext(initialState);
 export const MainCallback = {
   USER_TYPE: 'user_type',
   HANDLE_CATEGORY: 'user_type',
+  HANDLE_SIGN_UP_USER_ID: 'handle_sign_up_user_id',
 };
 
 const reducer = (state, action) => {
@@ -23,6 +25,11 @@ const reducer = (state, action) => {
       return {
         ...state,
         category: action.value,
+      };
+    case MainCallback.HANDLE_SIGN_UP_USER_ID:
+      return {
+        ...state,
+        signUpUserId: action.value,
       };
 
     default:
