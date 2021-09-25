@@ -1,16 +1,20 @@
 import React, {useContext, useEffect} from 'react';
-import {StyleSheet, View, StatusBar} from 'react-native';
+import {StyleSheet, StatusBar, View} from 'react-native';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {MainCallback, Store} from '../../store';
 import {materialTheme} from '../utils/config';
 import {endpoint} from '../utils/endpoint';
 import Header from './Header';
-import ListCategory from './ListCategory';
+import Main from './Main';
+import FooterNavigation from './FooterNavigation';
+import Profile from './Profile';
+
+const Tab = createBottomTabNavigator();
 
 const Home = ({navigation}) => {
   const {state, dispatch} = useContext(Store);
   const authentication = state.authentication;
   const category = state.category;
-  console.log({category});
 
   useEffect(() => {
     if (!category) {
@@ -25,9 +29,22 @@ const Home = ({navigation}) => {
 
   return (
     <View style={styles.root}>
-      <StatusBar animated={true} backgroundColor={materialTheme.primary} />
+      <StatusBar animated={true} backgroundColor={materialTheme.dark} />
       <Header authentication={authentication} />
-      <ListCategory category={category} />
+      <Tab.Navigator
+        tabBar={props => <FooterNavigation {...props} />}
+        screenOptions={{
+          headerShown: false,
+        }}>
+        <Tab.Screen
+          name="homeMain"
+          component={() => <Main category={category} />}
+        />
+        <Tab.Screen
+          name="homeProfile"
+          component={() => <Profile authentication={authentication} />}
+        />
+      </Tab.Navigator>
     </View>
   );
 };
@@ -38,6 +55,15 @@ const styles = StyleSheet.create({
     display: 'flex',
     bottom: 0,
     top: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: 'white',
+  },
+  container: {
+    position: 'absolute',
+    display: 'flex',
+    bottom: 80,
+    top: 80,
     left: 0,
     right: 0,
     backgroundColor: 'white',

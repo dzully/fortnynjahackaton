@@ -67,6 +67,7 @@ const styles = StyleSheet.create({
     position: 'relative',
     display: 'flex',
     padding: 10,
+    height: '100%',
   },
   headerContainer: {
     position: 'relative',

@@ -13,6 +13,14 @@ class Item(BaseModel):
     password: str
 
 
+class Usersignup(BaseModel):
+    username: str
+    password: str
+    name: str
+    phoneno: int
+    ic: int
+
+
 @app.get("/")
 def read_root():
     return {"Hello": "World"}
@@ -27,6 +35,21 @@ async def create_item():
     payload = {}
     headers = {}
     response = requests.request("GET", url, auth=requests.auth.HTTPBasicAuth(
+        username="4ZFfoQJm7KFrwpZe", password='6pHJP458LK0iccM6e123'), headers=headers, data=payload)
+
+    return response.json()
+
+
+@app.post("/api/forty/signup")
+async def create_item(userSignup: Usersignup):
+
+    url = baseUrl + "/podsavings/hackathon/v1.0/signup?email=" + \
+        userSignup.username + "&password=" + userSignup.password + '&name=' + userSignup.name + \
+        '&phoneno=' + userSignup.phoneno + '&ic_passport=' + \
+        userSignup.ic + '&deviceType=android'
+    payload = {}
+    headers = {}
+    response = requests.request("POST", url, auth=requests.auth.HTTPBasicAuth(
         username="4ZFfoQJm7KFrwpZe", password='6pHJP458LK0iccM6e123'), headers=headers, data=payload)
 
     return response.json()
