@@ -55,6 +55,17 @@ async def create_item():
     return response.json()
 
 
+@app.get("/api/forty/duration")
+async def create_item():
+    url = baseUrl + "/podsavings/hackathon/v1.0/duration"
+    payload = {}
+    headers = {}
+    response = requests.request("GET", url, auth=requests.auth.HTTPBasicAuth(
+        username="4ZFfoQJm7KFrwpZe", password='6pHJP458LK0iccM6e123'), headers=headers, data=payload)
+
+    return response.json()
+
+
 @app.post("/api/forty/signup")
 async def create_item(userSignup: Usersignup):
 

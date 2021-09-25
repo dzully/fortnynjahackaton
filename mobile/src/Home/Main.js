@@ -3,10 +3,13 @@ import {StyleSheet, ScrollView} from 'react-native';
 import ListCategory from './ListCategory';
 import IntroCard from './IntroCard';
 
-const Main = ({category}) => {
+const Main = ({category, handleGoals}) => {
   return (
-    <ScrollView style={styles.root}>
-      <IntroCard />
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      showsHorizontalScrollIndicator={false}
+      style={styles.root}>
+      <IntroCard handleGoals={handleGoals} />
       <ListCategory category={category} />
     </ScrollView>
   );

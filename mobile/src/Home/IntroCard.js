@@ -1,22 +1,23 @@
 import React from 'react';
-import {StyleSheet, View, Text, Image} from 'react-native';
+import {StyleSheet, View, Text, Image, TouchableOpacity} from 'react-native';
 import {materialTheme} from '../utils/config';
 import GoalIcon from '../assets/goal.png';
 
 const IntroCard = ({
   cardTitle = 'Create Your Saving Goals',
   cardSubitle = `We'll guid you along the way to make it easier!`,
+  handleGoals,
 }) => {
   return (
     <View style={styles.root}>
       <View style={styles.cardContainer}>
-        <View style={styles.customCard}>
+        <TouchableOpacity style={styles.customCard} onPress={handleGoals}>
           <Image source={GoalIcon} style={styles.customImage} />
           <View style={styles.customLabelContainer}>
             <Text style={styles.cardLabelTitle}>{cardTitle}</Text>
             <Text style={styles.cardLabel}>{cardSubitle}</Text>
           </View>
-        </View>
+        </TouchableOpacity>
       </View>
     </View>
   );

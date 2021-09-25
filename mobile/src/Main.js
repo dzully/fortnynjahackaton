@@ -5,6 +5,7 @@ import {NativeBaseProvider} from 'native-base';
 import Login from './Login';
 import Signup from './Signup';
 import Home from './Home';
+import CreateGoals from './CreateGoals';
 import SMSVerify from './Signup/SMSVerify';
 import {Store} from '../store';
 
@@ -14,6 +15,7 @@ const Main = () => {
   const {state} = useContext(Store);
   const authentication = state.authentication;
   const signUpUserId = state?.signUpUserId;
+  const category = state?.category;
 
   return (
     <NativeBaseProvider>
@@ -34,6 +36,10 @@ const Main = () => {
           ) : (
             <Fragment>
               <Stack.Screen name="Home" component={Home} />
+              <Stack.Screen
+                name="CreateGoals"
+                component={() => <CreateGoals category={category} />}
+              />
             </Fragment>
           )}
         </Stack.Navigator>

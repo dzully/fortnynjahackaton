@@ -15,6 +15,7 @@ const Home = ({navigation}) => {
   const {state, dispatch} = useContext(Store);
   const authentication = state.authentication;
   const category = state.category;
+  const duration = state.duration;
 
   useEffect(() => {
     if (!category) {
@@ -25,7 +26,20 @@ const Home = ({navigation}) => {
         })
         .catch(error => console.log('error', error));
     }
-  }, [category, dispatch]);
+
+    if (!duration) {
+      fetch(endpoint.duration)
+        .then(response => response.json())
+        .then(result => {
+          dispatch({type: MainCallback.HANDLE_DURATION, value: result});
+        })
+        .catch(error => console.log('error', error));
+    }
+  }, [category, dispatch, duration]);
+
+  const handleGoals = () => {
+    navigation.navigate('CreateGoals');
+  };
 
   return (
     <View style={styles.root}>
@@ -38,7 +52,9 @@ const Home = ({navigation}) => {
         }}>
         <Tab.Screen
           name="homeMain"
-          component={() => <Main category={category} />}
+          component={() => (
+            <Main category={category} handleGoals={handleGoals} />
+          )}
         />
         <Tab.Screen
           name="homeProfile"

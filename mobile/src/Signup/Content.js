@@ -17,7 +17,10 @@ const Content = ({
   auth,
 }) => {
   return (
-    <ScrollView style={styles.root}>
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      showsHorizontalScrollIndicator={false}
+      style={styles.root}>
       <View style={styles.container}>
         <Header label="Create Account" />
         <TextInput

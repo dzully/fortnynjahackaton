@@ -4,4 +4,5 @@ export const endpoint = {
   signup: `${baseUrl}/signup`,
   category: `${baseUrl}/category`,
   smsverify: `${baseUrl}/smsverify`,
+  duration: `${baseUrl}/duration`,
 };
