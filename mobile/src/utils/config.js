@@ -3,3 +3,10 @@ export const materialTheme = {
   light: '#4fb3bf',
   dark: '#005662',
 };
+
+export const baseUrl = `https://staging.usepod.app/`;
+
+export const appAuth = {
+  username: '4ZFfoQJm7KFrwpZe',
+  password: '6pHJP458LK0iccM6e123',
+};

@@ -1,68 +1,90 @@
-import React from 'react';
-import {
-  TouchableOpacity,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-} from 'react-native';
-import {materialTheme} from '../utils/config';
-import WelcomeIcon from '../assets/WelcomeIcon.png';
+import React, {useContext, useState} from 'react';
+import {StyleSheet, View} from 'react-native';
+import {encode} from 'base-64';
+import {appAuth, baseUrl} from '../utils/config';
+import Content from './Content';
+import Footer from './Footer';
+import {MainCallback, Store} from '../../store';
+import {endpoint} from '../utils/endpoint';
 
-const Login = ({signInLabel = 'Sign In'}) => {
-  const handleSignin = () => {};
+const Login = ({navigation}) => {
+  const {state, dispatch} = useContext(Store);
+  const [auth, setAuth] = useState({
+    email: 'dzulsyakimin@gmail.com',
+    password: '12345678',
+  });
+  const authentication = state.authentication;
+  console.log({authentication});
+
+  const handleSignin = () => {
+    const requestOptions = {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: auth.email,
+        password: auth.password,
+      }),
+    };
+
+    fetch('http://127.0.0.1:8000/signin')
+      .then(response => response.json())
+      .then(result => {
+        console.log({result});
+        // dispatch({type: MainCallback.USER_DATA, value: result});
+      })
+      .catch(error => console.log('error', error));
+    fetch('/signin')
+      .then(response => response.json())
+      .then(result => {
+        console.log({result});
+        // dispatch({type: MainCallback.USER_DATA, value: result});
+      })
+      .catch(error => console.log('error', error));
+  };
+
+  const handleInput = (event, param) => {
+    setAuth({...auth, [param]: event});
+  };
+
+  const handleSignup = () => {
+    navigation.navigate('Signup');
+  };
 
   return (
-    <ScrollView style={styles.root}>
-      <View style={styles.container}>
-        <View style={styles.imageContainer}>
-          <Image source={WelcomeIcon} style={{width: 50, height: 50}} />
-        </View>
-        <TouchableOpacity
-          activeOpacity={0.8}
-          onPress={handleSignin}
-          style={styles.customButton}>
-          <Text style={styles.customButtonLabel}>{signInLabel}</Text>
-        </TouchableOpacity>
-      </View>
-    </ScrollView>
+    <View style={styles.root}>
+      <Content
+        handleInput={handleInput}
+        handleSignin={handleSignin}
+        auth={auth}
+      />
+      <Footer handleSignup={handleSignup} />
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   root: {
-    position: 'relative',
+    position: 'absolute',
     display: 'flex',
+    bottom: 0,
+    top: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: 'white',
   },
-  container: {
-    position: 'relative',
-    display: 'flex',
-    padding: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  customButton: {
-    position: 'relative',
+  footerRoot: {
+    position: 'absolute',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: materialTheme.primary,
-    padding: 15,
-    width: '100%',
-    borderRadius: 5,
-  },
-  customButtonLabel: {
-    fontWeight: 'bold',
-    color: 'white',
-  },
-  imageContainer: {
-    position: 'relative',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 400,
-    width: '100%',
+    bottom: 0,
+    height: 50,
+    left: 0,
+    right: 0,
+    backgroundColor: 'white',
   },
 });
 
