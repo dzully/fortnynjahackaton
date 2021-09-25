@@ -5,4 +5,5 @@ export const endpoint = {
   category: `${baseUrl}/category`,
   smsverify: `${baseUrl}/smsverify`,
   duration: `${baseUrl}/duration`,
+  goal: `${baseUrl}/goal`,
 };

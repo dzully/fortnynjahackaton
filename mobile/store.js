@@ -5,6 +5,7 @@ const initialState = {
   category: null,
   signUpUserId: null,
   duration: null,
+  currentGoals: null,
   createGoals: {
     name: '',
     duration: '',
@@ -21,6 +22,7 @@ export const MainCallback = {
   HANDLE_SIGN_UP_USER_ID: 'handle_sign_up_user_id',
   HANDLE_DURATION: 'handle_duration',
   HANDLE_CREATE_GOAL: 'handle_create_goal',
+  HANDLE_CURRENT_GOAL: 'handle_current_goal',
 };
 
 const reducer = (state, action) => {
@@ -52,6 +54,11 @@ const reducer = (state, action) => {
           ...state.createGoals,
           [action.label]: action.value,
         },
+      };
+    case MainCallback.HANDLE_CURRENT_GOAL:
+      return {
+        ...state,
+        currentGoals: action.value,
       };
 
     default:

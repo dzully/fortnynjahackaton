@@ -10,37 +10,27 @@ import {
 } from 'react-native';
 import BackButton from '../assets/left-arrow.png';
 import {materialTheme} from '../utils/config';
-import TravelIcon from '../assets/travelCase.png';
-import GadgetIcon from '../assets/gadgets.png';
-import BillIcon from '../assets/bill.png';
-import CollegeIcon from '../assets/college.png';
-import BirtdayIcon from '../assets/confetti.png';
-import PartiesIcon from '../assets/dance.png';
-import FashionIcon from '../assets/fashion.png';
-import SavingIcon from '../assets/generalSaving.png';
-import LoanIcon from '../assets/loan.png';
-import WeddingIcon from '../assets/wedding.png';
 import {MainCallback, Store} from '../../store';
 
-const CreateGoals = ({
+const Duration = ({
   navigation,
-  category,
-  headerTitle = 'Goals',
-  headerSubtitle = 'Pick a category to start saving.',
+  duration,
+  headerTitle = 'Duration',
+  headerSubtitle = 'Pick your duration for saving.',
 }) => {
-  console.log({navigation});
+  console.log({duration});
   const {dispatch} = useContext(Store);
   const handleHome = () => {
-    navigation.navigate('Home');
+    navigation.navigate('CreateGoals');
   };
 
   const handleSelectCategory = id => {
     dispatch({
       type: MainCallback.HANDLE_CREATE_GOAL,
-      label: 'category',
+      label: 'duration',
       value: id,
     });
-    navigation.navigate('Duration');
+    navigation.navigate('GoalSubmission');
   };
 
   return (
@@ -61,43 +51,24 @@ const CreateGoals = ({
         style={styles.container}>
         <Text style={styles.headerTitle}>{headerTitle}</Text>
         <Text style={styles.headerSubtitle}>{headerSubtitle}</Text>
-        {category?.map((model, key) => {
-          let renderImage = TravelIcon;
-          if (model.name === 'Gadgets') {
-            renderImage = GadgetIcon;
-          }
-          if (model.name === 'Fashion') {
-            renderImage = FashionIcon;
-          }
-          if (model.name === 'Marriage') {
-            renderImage = WeddingIcon;
-          }
-          if (model.name === 'College') {
-            renderImage = CollegeIcon;
-          }
-          if (model.name === 'Loans') {
-            renderImage = LoanIcon;
-          }
-          if (model.name === 'Parties') {
-            renderImage = PartiesIcon;
-          }
-          if (model.name === 'House bills') {
-            renderImage = BillIcon;
-          }
-          if (model.name === 'Birthday') {
-            renderImage = BirtdayIcon;
-          }
-          if (model.name === 'General Savings') {
-            renderImage = SavingIcon;
-          }
-
+        {duration?.map((model, key) => {
           return (
             <TouchableOpacity
               key={key.toString()}
               onPress={() => handleSelectCategory(model.id)}
               style={styles.customCard}>
-              <Image style={styles.customImage} source={renderImage} />
-              <Text style={styles.cardLabel}>{model.name}</Text>
+              <View style={styles.cardLabelWrap}>
+                <Text style={styles.cardLabel}>{model.days}</Text>
+                <Text style={styles.cardLabelText}>Days</Text>
+              </View>
+              <View style={styles.cardLabelWrapCenter}>
+                <Text style={styles.cardLabel}>{model.weeks}</Text>
+                <Text style={styles.cardLabelText}>Weeks</Text>
+              </View>
+              <View style={styles.cardLabelWrap}>
+                <Text style={styles.cardLabel}>{model.month}</Text>
+                <Text style={styles.cardLabelText}>Month</Text>
+              </View>
             </TouchableOpacity>
           );
         })}
@@ -120,6 +91,25 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     paddingLeft: 20,
     paddingRight: 20,
+  },
+  cardLabelWrap: {
+    position: 'relative',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  cardLabelWrapCenter: {
+    position: 'relative',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: 40,
+    marginRight: 40,
+  },
+  cardLabelText: {
+    color: 'white',
+    fontSize: 25,
+    bottom: 5,
   },
   headerBack: {
     position: 'relative',
@@ -162,9 +152,10 @@ const styles = StyleSheet.create({
   customCard: {
     alignItems: 'center',
     display: 'flex',
+    justifyContent: 'center',
     flexDirection: 'row',
     backgroundColor: materialTheme.dark,
-    height: 100,
+    height: 120,
     width: '100%',
     // borderWidth: 1,
     borderRadius: 10,
@@ -172,17 +163,11 @@ const styles = StyleSheet.create({
     marginTop: 5,
     padding: 10,
   },
-  customImage: {
-    width: 60,
-    height: 60,
-    marginLeft: 10,
-  },
   cardLabel: {
     color: 'white',
-    marginLeft: 20,
-    fontSize: 25,
+    fontSize: 35,
     fontWeight: 'bold',
   },
 });
 
-export default CreateGoals;
+export default Duration;

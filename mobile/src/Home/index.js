@@ -16,6 +16,7 @@ const Home = ({navigation}) => {
   const authentication = state.authentication;
   const category = state.category;
   const duration = state.duration;
+  const currentGoals = state.currentGoals;
 
   useEffect(() => {
     if (!category) {
@@ -37,6 +38,17 @@ const Home = ({navigation}) => {
     }
   }, [category, dispatch, duration]);
 
+  useEffect(() => {
+    if (!currentGoals) {
+      fetch(`${endpoint.goal}/${authentication.access_token}`)
+        .then(response => response.json())
+        .then(result => {
+          dispatch({type: MainCallback.HANDLE_CURRENT_GOAL, value: result});
+        })
+        .catch(error => console.log('error', error));
+    }
+  }, [authentication.access_token, currentGoals, dispatch]);
+
   const handleGoals = () => {
     navigation.navigate('CreateGoals');
   };
@@ -53,7 +65,11 @@ const Home = ({navigation}) => {
         <Tab.Screen
           name="homeMain"
           component={() => (
-            <Main category={category} handleGoals={handleGoals} />
+            <Main
+              category={category}
+              handleGoals={handleGoals}
+              currentGoals={currentGoals}
+            />
           )}
         />
         <Tab.Screen

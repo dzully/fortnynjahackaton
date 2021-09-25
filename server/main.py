@@ -23,6 +23,14 @@ class Usersignup(BaseModel):
     code: str
 
 
+class UserGoals(BaseModel):
+    access_token: str
+    duration_id: str
+    category_id: str
+    price: str
+    goal_name: str
+
+
 @app.get("/")
 def read_root():
     return {"Hello": "World"}
@@ -44,6 +52,21 @@ async def create_item(userVerify: UserVerify):
     return response.json()
 
 
+@app.post("/api/forty/goal")
+async def create_item(userGoals: UserGoals):
+    url = baseUrl + "/podsavings/hackathon/v1.0/goal?" + \
+        "access_token=" + userGoals.access_token + "&goal_name=" + userGoals.goal_name + \
+        "&duration_id=" + userGoals.duration_id + "&category_id=" + \
+        userGoals.category_id + "&price=" + userGoals.price
+    payload = {}
+    headers = {}
+
+    response = requests.request("POST", url, auth=requests.auth.HTTPBasicAuth(
+        username="4ZFfoQJm7KFrwpZe", password='6pHJP458LK0iccM6e123'), headers=headers, data=payload)
+
+    return response.json()
+
+
 @app.get("/api/forty/category")
 async def create_item():
     url = baseUrl + "/podsavings/hackathon/v1.0/category"
@@ -58,6 +81,17 @@ async def create_item():
 @app.get("/api/forty/duration")
 async def create_item():
     url = baseUrl + "/podsavings/hackathon/v1.0/duration"
+    payload = {}
+    headers = {}
+    response = requests.request("GET", url, auth=requests.auth.HTTPBasicAuth(
+        username="4ZFfoQJm7KFrwpZe", password='6pHJP458LK0iccM6e123'), headers=headers, data=payload)
+
+    return response.json()
+
+
+@app.get("/api/forty/goal/{access_token}")
+async def create_item(access_token: str):
+    url = baseUrl + "/podsavings/hackathon/v1.0/goal?" + "access_token=" + access_token
     payload = {}
     headers = {}
     response = requests.request("GET", url, auth=requests.auth.HTTPBasicAuth(
