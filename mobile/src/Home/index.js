@@ -1,15 +1,33 @@
-import React, {useContext} from 'react';
-import {StyleSheet, View, Text} from 'react-native';
-import {Store} from '../../store';
+import React, {useContext, useEffect} from 'react';
+import {StyleSheet, View, StatusBar} from 'react-native';
+import {MainCallback, Store} from '../../store';
+import {materialTheme} from '../utils/config';
+import {endpoint} from '../utils/endpoint';
+import Header from './Header';
+import ListCategory from './ListCategory';
 
 const Home = ({navigation}) => {
-  const {state} = useContext(Store);
+  const {state, dispatch} = useContext(Store);
   const authentication = state.authentication;
-  console.log({authentication});
+  const category = state.category;
+  console.log({category});
+
+  useEffect(() => {
+    if (!category) {
+      fetch(endpoint.category)
+        .then(response => response.json())
+        .then(result => {
+          dispatch({type: MainCallback.HANDLE_CATEGORY, value: result});
+        })
+        .catch(error => console.log('error', error));
+    }
+  }, [category, dispatch]);
 
   return (
     <View style={styles.root}>
-      <Text>Home</Text>
+      <StatusBar animated={true} backgroundColor={materialTheme.primary} />
+      <Header authentication={authentication} />
+      <ListCategory category={category} />
     </View>
   );
 };

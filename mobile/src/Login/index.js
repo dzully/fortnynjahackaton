@@ -1,20 +1,16 @@
 import React, {useContext, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
-import {encode} from 'base-64';
-import {appAuth, baseUrl} from '../utils/config';
 import Content from './Content';
 import Footer from './Footer';
 import {MainCallback, Store} from '../../store';
 import {endpoint} from '../utils/endpoint';
 
 const Login = ({navigation}) => {
-  const {state, dispatch} = useContext(Store);
+  const {dispatch} = useContext(Store);
   const [auth, setAuth] = useState({
     email: 'dzulsyakimin@gmail.com',
     password: '12345678',
   });
-  const authentication = state.authentication;
-  console.log({authentication});
 
   const handleSignin = () => {
     const requestOptions = {
@@ -29,18 +25,10 @@ const Login = ({navigation}) => {
       }),
     };
 
-    fetch('http://127.0.0.1:8000/signin')
+    fetch(endpoint.signin, requestOptions)
       .then(response => response.json())
       .then(result => {
-        console.log({result});
-        // dispatch({type: MainCallback.USER_DATA, value: result});
-      })
-      .catch(error => console.log('error', error));
-    fetch('/signin')
-      .then(response => response.json())
-      .then(result => {
-        console.log({result});
-        // dispatch({type: MainCallback.USER_DATA, value: result});
+        dispatch({type: MainCallback.USER_DATA, value: result});
       })
       .catch(error => console.log('error', error));
   };

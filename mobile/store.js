@@ -2,12 +2,14 @@ import React, {useReducer, createContext} from 'react';
 
 const initialState = {
   authentication: null,
+  category: null,
 };
 
 export const Store = createContext(initialState);
 
 export const MainCallback = {
   USER_TYPE: 'user_type',
+  HANDLE_CATEGORY: 'user_type',
 };
 
 const reducer = (state, action) => {
@@ -16,6 +18,11 @@ const reducer = (state, action) => {
       return {
         ...state,
         authentication: action.value,
+      };
+    case MainCallback.HANDLE_CATEGORY:
+      return {
+        ...state,
+        category: action.value,
       };
 
     default:
