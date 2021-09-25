@@ -8,8 +8,8 @@ import {endpoint} from '../utils/endpoint';
 const Login = ({navigation}) => {
   const {dispatch} = useContext(Store);
   const [auth, setAuth] = useState({
-    email: 'dzulsyakimin@gmail.com',
-    password: '12345678',
+    email: '',
+    password: '',
   });
 
   const handleSignin = () => {

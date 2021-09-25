@@ -11,7 +11,7 @@ const Main = ({category, handleGoals, currentGoals}) => {
       showsHorizontalScrollIndicator={false}
       style={styles.root}>
       <IntroCard handleGoals={handleGoals} />
-      <CurrentGoals currentGoals={currentGoals} />
+      {currentGoals ? <CurrentGoals currentGoals={currentGoals} /> : null}
       <ListCategory category={category} />
     </ScrollView>
   );

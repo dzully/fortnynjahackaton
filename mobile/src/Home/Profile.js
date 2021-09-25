@@ -2,7 +2,6 @@ import React from 'react';
 import {StyleSheet, View, Text, ScrollView} from 'react-native';
 
 const Profile = ({authentication, title = 'Profile'}) => {
-  console.log({authentication});
   const guardModel = {
     Username: authentication.name,
     Email: authentication.email,

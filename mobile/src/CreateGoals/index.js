@@ -28,7 +28,6 @@ const CreateGoals = ({
   headerTitle = 'Goals',
   headerSubtitle = 'Pick a category to start saving.',
 }) => {
-  console.log({navigation});
   const {dispatch} = useContext(Store);
   const handleHome = () => {
     navigation.navigate('Home');

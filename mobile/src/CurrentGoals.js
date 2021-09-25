@@ -4,15 +4,14 @@ import {materialTheme} from './utils/config';
 
 const CurrentGoals = ({label = 'CurrentGoals', currentGoals}) => {
   const reModel = {
-    'Goal Name': currentGoals.name,
-    'Goal Type': currentGoals.goal_type,
-    'Amount Saved': `RM ${currentGoals.amount_saved}`,
-    'Target Days': currentGoals.days,
-    'Days Left': currentGoals.days_left,
-    'End Date': currentGoals.endDate,
+    'Goal Name': currentGoals?.name,
+    'Goal Type': currentGoals?.goal_type,
+    'Amount Saved': `RM ${currentGoals?.amount_saved}`,
+    'Target Days': currentGoals?.days,
+    'Days Left': currentGoals?.days_left,
+    'End Date': currentGoals?.endDate,
   };
 
-  console.log({currentGoals});
   return (
     <View style={styles.root}>
       <View style={styles.customCard}>

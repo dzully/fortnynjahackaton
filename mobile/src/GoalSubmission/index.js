@@ -57,7 +57,6 @@ const GoalSubmission = ({
   };
 
   const handleSubmit = () => {
-    console.log({auth});
     const requestOptions = {
       method: 'POST',
       headers: {
@@ -73,7 +72,6 @@ const GoalSubmission = ({
         if (result.status) {
           navigation.navigate('Home');
         }
-        console.log({result});
       })
       .catch(error => console.log('error', error));
   };

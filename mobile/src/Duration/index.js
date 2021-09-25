@@ -18,7 +18,6 @@ const Duration = ({
   headerTitle = 'Duration',
   headerSubtitle = 'Pick your duration for saving.',
 }) => {
-  console.log({duration});
   const {dispatch} = useContext(Store);
   const handleHome = () => {
     navigation.navigate('CreateGoals');
